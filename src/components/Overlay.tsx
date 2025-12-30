@@ -20,7 +20,14 @@ export function Overlay({ show, onReload }: OverlayProps) {
       alignItems: 'center',
       justifyContent: 'space-between'
     }}>
-      <h1 style={{ margin: 0, fontSize: '3rem', textShadow: '0 0 10px rgba(255,255,255,0.5)', textAlign: 'center', fontFamily: '"Righteous", cursive' }}>
+      <h1 style={{ 
+        margin: 0, 
+        fontSize: 'clamp(2rem, 5vw, 3.5rem)', // Fluid main title sizing for mobile
+        textShadow: '0 0 10px rgba(255,255,255,0.5)', 
+        textAlign: 'center', 
+        fontFamily: '"Righteous", cursive',
+        padding: '0 1rem' // Mobile edge spacing
+      }}>
         Rocket Launch Celebration
       </h1>
       
@@ -33,15 +40,21 @@ export function Overlay({ show, onReload }: OverlayProps) {
               textAlign: 'center',
               pointerEvents: 'auto'
           }}>
-              <h1 style={{ fontSize: '5rem', color: '#ffd700', textShadow: '0 0 20px rgba(255,215,0,0.8)', fontFamily: '"Righteous", cursive' }}>
+              <h1 style={{ 
+                fontSize: 'clamp(2.5rem, 8vw, 5rem)', // Fluid "Happy New Year" sizing
+                color: '#ffd700', 
+                textShadow: '0 0 20px rgba(255,215,0,0.8)', 
+                fontFamily: '"Righteous", cursive',
+                margin: '0 1rem' // Mobile edge spacing
+              }}>
                   HAPPY NEW YEAR! 2026
               </h1>
               <button 
                 onClick={onReload}
                 style={{
-                  marginTop: '2rem',
-                  padding: '1rem 2rem',
-                  fontSize: '1.5rem',
+                  marginTop: 'clamp(1rem, 3vw, 2rem)', // Responsive spacing
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem)', // Fluid padding
+                  fontSize: 'clamp(1rem, 3vw, 1.5rem)', // Fluid button text
                   backgroundColor: '#ffd700',
                   color: '#000',
                   border: 'none',
@@ -50,7 +63,10 @@ export function Overlay({ show, onReload }: OverlayProps) {
                   fontFamily: '"Poppins", sans-serif',
                   fontWeight: 'bold',
                   boxShadow: '0 0 15px rgba(255, 215, 0, 0.5)',
-                  transition: 'transform 0.2s, box-shadow 0.2s'
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  minWidth: 'var(--touch-target-min)', // WCAG AAA touch target
+                  minHeight: 'var(--touch-target-min)', // WCAG AAA touch target
+                  touchAction: 'manipulation' // Prevent double-tap zoom on mobile
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'scale(1.1)'

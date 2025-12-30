@@ -12,9 +12,9 @@ function App() {
   const [coords, setCoords] = useState<[number, number, number] | null>(null)
   const [isLocked, setIsLocked] = useState(true)
   
-  // Target date: Jan 1, 2026
-  // Note: Month is 0-indexed in JS Date (0 = Jan)
-  const targetDate = new Date(2025, 0, 1, 0, 0, 0)
+  // Target date: Jan 1, 2026 00:00:00 WIB (Jakarta, UTC+7)
+  // Using ISO 8601 format with timezone offset for accurate WIB timezone
+  const targetDate = new Date('2025-01-01T00:00:00+07:00')
 
   useEffect(() => {
     const checkDate = () => {
