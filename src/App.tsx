@@ -14,24 +14,34 @@ function App() {
   
   // Target date: Jan 1, 2026 00:00:00 WIB (Jakarta, UTC+7)
   // Using ISO 8601 format with timezone offset for accurate WIB timezone
-  const targetDate = new Date('2025-01-01T00:00:00+07:00')
+  const targetDate = new Date('2026-01-01T00:00:00+07:00')
 
   useEffect(() => {
     const checkDate = () => {
       const now = new Date()
-      setIsLocked(now < targetDate)
+      const locked = now < targetDate
+      
+      // Auto refresh when countdown completes (hits target date)
+      if (!locked && isLocked) {
+        window.location.reload()
+      }
+      
+      setIsLocked(locked)
     }
     
     checkDate()
     const timer = setInterval(checkDate, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [isLocked])
 
   return (
     <>
       <Leva />
       {!isLocked && <Overlay show={!!coords} onReload={() => setCoords(null)} />}
-      {isLocked && <Countdown targetDate={targetDate} onComplete={() => setIsLocked(false)} />}
+      {isLocked && <Countdown targetDate={targetDate} onComplete={() => {
+        setIsLocked(false)
+        window.location.reload()
+      }} />}
       <Canvas shadows camera={{ position: [0, 5, 10], fov: 50 }}>
         <color attach="background" args={['#1a0a1e']} />
         <Suspense fallback={null}>

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { RigidBody, RapierRigidBody } from '@react-three/rapier'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import * as THREE from 'three'
 import { Html, Trail } from '@react-three/drei'
@@ -14,7 +14,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
   const rigidBodyRef = useRef<RapierRigidBody>(null)
   const [exploded, setExploded] = useState(false)
   const [power, setPower] = useState(0)
-  const meshRef = useRef<THREE.Group>(null)
+  const meshRef = useRef<THREE.Object3D>(null)
   const { camera } = useThree()
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
   }
   
   // Touch handler for mobile devices (propagates alongside onClick)
-  const handlePointerDown = (e: THREE.Event) => {
+  const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
     addPower()
   }
@@ -71,7 +71,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
       lockRotations
     >
         <group onClick={addPower} onPointerDown={handlePointerDown} ref={meshRef}>
-            <Trail width={1.5} color="#ff851b" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef}>
+            <Trail width={1.5} color="#ff851b" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef as React.RefObject<THREE.Object3D>}>
                 <group>
                     {/* Rocket Body */}
                     <mesh castShadow receiveShadow position={[0, 1, 0]}>
