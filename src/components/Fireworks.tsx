@@ -7,14 +7,23 @@ interface FireworksProps {
 }
 
 export function Fireworks({ position }: FireworksProps) {
-    const count = 300 // More particles
+    // Mobile detection: Reduce particle count on small screens (≤768px)
+    const isMobile = window.innerWidth <= 768
+    const count = isMobile ? 150 : 300 // Performance optimization for 30fps minimum on mobile
+    
     const meshRef = useRef<THREE.InstancedMesh>(null)
     // Warm color palette for fireworks
     const colors = useMemo(() => ['#ff4136', '#ff851b', '#ffd700', '#ffdc00'], [])
     
     // Initial particle data
     const particles = useMemo(() => {
-        const temp = []
+        const temp: Array<{
+            velocity: THREE.Vector3
+            position: THREE.Vector3
+            scale: number
+            color: THREE.Color
+            life: number
+        }> = []
         for (let i = 0; i < count; i++) {
             const speed = 0.2 + Math.random() * 0.8
             // Random direction in sphere
@@ -40,11 +49,11 @@ export function Fireworks({ position }: FireworksProps) {
             })
         }
         return temp
-    }, [colors])
+    }, [colors, count])
 
     const dummy = useMemo(() => new THREE.Object3D(), [])
 
-    useFrame((state, delta) => {
+    useFrame((_, delta) => {
         if (!meshRef.current) return
 
         particles.forEach((particle, i) => {

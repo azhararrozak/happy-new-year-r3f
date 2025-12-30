@@ -55,17 +55,43 @@ export function Countdown({ targetDate, onComplete }: CountdownProps) {
       justifyContent: 'center',
       zIndex: 20,
       pointerEvents: 'none',
+      padding: '1rem', // Mobile edge spacing
     }}>
-      <h2 style={{ fontSize: '2rem', color: '#ffd700', marginBottom: '1rem', textShadow: '0 0 10px rgba(255, 215, 0, 0.5)', fontFamily: '"Righteous", cursive' }}>
+      <h2 style={{ 
+        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', // Fluid typography for mobile (375px-768px)
+        color: '#ffd700', 
+        marginBottom: '1rem', 
+        textShadow: '0 0 10px rgba(255, 215, 0, 0.5)', 
+        fontFamily: '"Righteous", cursive',
+        textAlign: 'center'
+      }}>
         Countdown to 2026
       </h2>
-      <div style={{ display: 'flex', gap: '2rem' }}>
+      <div style={{ 
+        display: 'flex', 
+        gap: 'clamp(1rem, 4vw, 2rem)', // Responsive gap
+        flexWrap: 'wrap', // Allow wrapping on very small screens
+        justifyContent: 'center'
+      }}>
         {Object.entries(timeLeft).map(([unit, value]) => (
           <div key={unit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontSize: '4rem', fontWeight: 'bold', color: 'white', textShadow: '0 0 20px rgba(255,255,255,0.5)', fontFamily: '"Poppins", sans-serif' }}>
+            <span style={{ 
+              fontSize: 'clamp(2.5rem, 8vw, 4rem)', // Fluid number sizing
+              fontWeight: 'bold', 
+              color: 'white', 
+              textShadow: '0 0 20px rgba(255,255,255,0.5)', 
+              fontFamily: '"Poppins", sans-serif',
+              lineHeight: 1
+            }}>
               {value.toString().padStart(2, '0')}
             </span>
-            <span style={{ color: '#aaa', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px', fontFamily: '"Poppins", sans-serif' }}>
+            <span style={{ 
+              color: '#aaa', 
+              textTransform: 'uppercase', 
+              fontSize: 'clamp(0.7rem, 2vw, 0.9rem)', // Fluid label sizing
+              letterSpacing: '2px', 
+              fontFamily: '"Poppins", sans-serif' 
+            }}>
               {unit}
             </span>
           </div>

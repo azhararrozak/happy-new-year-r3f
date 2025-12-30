@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { RigidBody, RapierRigidBody } from '@react-three/rapier'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import * as THREE from 'three'
 import { Html, Trail } from '@react-three/drei'
@@ -14,7 +14,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
   const rigidBodyRef = useRef<RapierRigidBody>(null)
   const [exploded, setExploded] = useState(false)
   const [power, setPower] = useState(0)
-  const meshRef = useRef<THREE.Group>(null)
+  const meshRef = useRef<THREE.Object3D>(null)
   const { camera } = useThree()
 
   useEffect(() => {
@@ -53,6 +53,12 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
     setPower(p => p + 2)
     rigidBodyRef.current?.applyImpulse({ x: 0, y: 2, z: 0 }, true)
   }
+  
+  // Touch handler for mobile devices (propagates alongside onClick)
+  const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation()
+    addPower()
+  }
 
   if (exploded) return null
 
@@ -64,8 +70,8 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
     //   restitution={0.5}
       lockRotations
     >
-        <group onClick={addPower} ref={meshRef}>
-            <Trail width={1.5} color="#ff851b" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef}>
+        <group onClick={addPower} onPointerDown={handlePointerDown} ref={meshRef}>
+            <Trail width={1.5} color="#ff851b" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef as React.RefObject<THREE.Object3D>}>
                 <group>
                     {/* Rocket Body */}
                     <mesh castShadow receiveShadow position={[0, 1, 0]}>
@@ -101,16 +107,18 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
         </group>
         
         {!disabled && (
-            <Html position={[1.5, 1, 0]} center distanceFactor={10}>
+            <Html position={[0, 3, 0]} center distanceFactor={10}>
                 <div style={{ 
                     color: 'white', 
                     background: 'rgba(0,0,0,0.6)', 
-                    padding: '8px 12px', 
+                    padding: 'clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 12px)', // Responsive padding
                     borderRadius: '20px', 
-                    pointerEvents: 'none',
+                    pointerEvents: 'none', // Prevent blocking touch events
                     whiteSpace: 'nowrap',
                     fontWeight: 'bold',
-                    fontFamily: 'sans-serif'
+                    fontFamily: 'sans-serif',
+                    fontSize: 'clamp(0.8rem, 2vw, 1rem)', // Fluid font size
+                    transform: 'translateY(-20px)' // Position above rocket to avoid finger obstruction
                 }}>
                     Tekan Roketnya!
                 </div>

@@ -6,6 +6,19 @@
   --color-deep-orange: #ff6b35;
   --color-dark-bg: #1a0a1e;
   --color-dark-bg-end: #3d1a1f;
+  
+  /* Mobile Spacing Variables (320px-768px mobile breakpoints) */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  
+  /* Touch Target Minimum (WCAG AAA Standard) */
+  --touch-target-min: 44px;
+  
+  /* Mobile Typography Base */
+  --font-size-base: 16px;
 }
 
 html, body, #root {
@@ -17,6 +30,21 @@ html, body, #root {
   background: linear-gradient(180deg, #1a0a1e 0%, #3d1a1f 100%);
   background-attachment: fixed;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Canvas Mobile Optimization: Full viewport with touch handling */
+canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+  touch-action: none; /* Prevent default browser touch gestures (zoom, scroll) */
+  -webkit-touch-callout: none; /* iOS Safari: Disable callout on long-press */
+}
+
+/* Text Selection Prevention for Touch Devices */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent; /* iOS Safari: Remove tap highlight */
 }
 
 /* Typography: Headings use Righteous */
