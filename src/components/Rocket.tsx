@@ -28,16 +28,16 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
 
     const pos = rigidBodyRef.current.translation()
     
-    // Apply power force
+    // Apply power force - delta ensures 60fps frame-independent physics
     if (power > 0) {
         rigidBodyRef.current.applyImpulse({ x: 0, y: power * delta * 50, z: 0 }, true)
-        setPower(p => Math.max(0, p - delta * 2))
+        setPower(p => Math.max(0, p - delta * 2)) // Smooth power decay
     }
 
-    // Camera follow
+    // Camera follow - lerp factor 0.08 for smooth cinematic motion (60fps)
     if (pos.y > 5) {
         const cameraTarget = new Vector3(pos.x, pos.y + 2, pos.z + 15)
-        state.camera.position.lerp(cameraTarget, 0.1)
+        state.camera.position.lerp(cameraTarget, 0.08)
         state.camera.lookAt(pos.x, pos.y + 5, pos.z)
     }
 
@@ -65,7 +65,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
       lockRotations
     >
         <group onClick={addPower} ref={meshRef}>
-            <Trail width={1.5} color="#ffa500" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef}>
+            <Trail width={1.5} color="#ff851b" length={5} decay={2} local={false} stride={0} interval={1} target={meshRef}>
                 <group>
                     {/* Rocket Body */}
                     <mesh castShadow receiveShadow position={[0, 1, 0]}>
@@ -95,7 +95,7 @@ export function Rocket({ onExplode, disabled }: RocketProps) {
             {power > 0.1 && (
                 <mesh position={[0, -0.5, 0]} rotation={[Math.PI, 0, 0]}>
                     <coneGeometry args={[0.2 + power * 0.05, 1 + power * 0.3, 16]} />
-                    <meshBasicMaterial color="orange" transparent opacity={0.8} />
+                    <meshBasicMaterial color="#ff851b" transparent opacity={0.8} />
                 </mesh>
             )}
         </group>

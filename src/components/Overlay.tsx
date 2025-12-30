@@ -20,7 +20,7 @@ export function Overlay({ show, onReload }: OverlayProps) {
       alignItems: 'center',
       justifyContent: 'space-between'
     }}>
-      <h1 style={{ margin: 0, fontSize: '3rem', textShadow: '0 0 10px rgba(255,255,255,0.5)', textAlign: 'center' }}>
+      <h1 style={{ margin: 0, fontSize: '3rem', textShadow: '0 0 10px rgba(255,255,255,0.5)', textAlign: 'center', fontFamily: '"Righteous", cursive' }}>
         Rocket Launch Celebration
       </h1>
       
@@ -33,7 +33,7 @@ export function Overlay({ show, onReload }: OverlayProps) {
               textAlign: 'center',
               pointerEvents: 'auto'
           }}>
-              <h1 style={{ fontSize: '5rem', color: '#ffd700', textShadow: '0 0 20px rgba(255,215,0,0.8)' }}>
+              <h1 style={{ fontSize: '5rem', color: '#ffd700', textShadow: '0 0 20px rgba(255,215,0,0.8)', fontFamily: '"Righteous", cursive' }}>
                   HAPPY NEW YEAR! 2026
               </h1>
               <button 
@@ -47,6 +47,7 @@ export function Overlay({ show, onReload }: OverlayProps) {
                   border: 'none',
                   borderRadius: '50px',
                   cursor: 'pointer',
+                  fontFamily: '"Poppins", sans-serif',
                   fontWeight: 'bold',
                   boxShadow: '0 0 15px rgba(255, 215, 0, 0.5)',
                   transition: 'transform 0.2s, box-shadow 0.2s'

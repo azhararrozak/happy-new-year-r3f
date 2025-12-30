@@ -1,9 +1,26 @@
+/* CSS Variables for Warm Color Palette */
+:root {
+  --color-gold: #ffd700;
+  --color-soft-gold: #ffb84d;
+  --color-orange: #ff851b;
+  --color-deep-orange: #ff6b35;
+  --color-dark-bg: #1a0a1e;
+  --color-dark-bg-end: #3d1a1f;
+}
+
 html, body, #root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #050510; /* Dark night sky */
-  font-family: 'Inter', sans-serif;
+  background: linear-gradient(180deg, #1a0a1e 0%, #3d1a1f 100%);
+  background-attachment: fixed;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Typography: Headings use Righteous */
+h1, h2, h3, .heading {
+  font-family: 'Righteous', 'Poppins', sans-serif;
+  font-weight: 400;
 }
