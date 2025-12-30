@@ -33,7 +33,7 @@ function App() {
       {!isLocked && <Overlay show={!!coords} onReload={() => setCoords(null)} />}
       {isLocked && <Countdown targetDate={targetDate} onComplete={() => setIsLocked(false)} />}
       <Canvas shadows camera={{ position: [0, 5, 10], fov: 50 }}>
-        <color attach="background" args={['#050510']} />
+        <color attach="background" args={['#1a0a1e']} />
         <Suspense fallback={null}>
           <Physics>
             <Scene />

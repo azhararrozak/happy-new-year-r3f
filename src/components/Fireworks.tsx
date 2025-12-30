@@ -9,7 +9,8 @@ interface FireworksProps {
 export function Fireworks({ position }: FireworksProps) {
     const count = 300 // More particles
     const meshRef = useRef<THREE.InstancedMesh>(null)
-    const colors = useMemo(() => ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'], [])
+    // Warm color palette for fireworks
+    const colors = useMemo(() => ['#ff4136', '#ff851b', '#ffd700', '#ffdc00'], [])
     
     // Initial particle data
     const particles = useMemo(() => {

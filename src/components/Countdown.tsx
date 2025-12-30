@@ -56,16 +56,16 @@ export function Countdown({ targetDate, onComplete }: CountdownProps) {
       zIndex: 20,
       pointerEvents: 'none',
     }}>
-      <h2 style={{ fontSize: '2rem', color: '#ffd700', marginBottom: '1rem', textShadow: '0 0 10px rgba(255, 215, 0, 0.5)' }}>
+      <h2 style={{ fontSize: '2rem', color: '#ffd700', marginBottom: '1rem', textShadow: '0 0 10px rgba(255, 215, 0, 0.5)', fontFamily: '"Righteous", cursive' }}>
         Countdown to 2026
       </h2>
       <div style={{ display: 'flex', gap: '2rem' }}>
         {Object.entries(timeLeft).map(([unit, value]) => (
           <div key={unit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontSize: '4rem', fontWeight: 'bold', color: 'white', textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
+            <span style={{ fontSize: '4rem', fontWeight: 'bold', color: 'white', textShadow: '0 0 20px rgba(255,255,255,0.5)', fontFamily: '"Poppins", sans-serif' }}>
               {value.toString().padStart(2, '0')}
             </span>
-            <span style={{ color: '#aaa', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px' }}>
+            <span style={{ color: '#aaa', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px', fontFamily: '"Poppins", sans-serif' }}>
               {unit}
             </span>
           </div>
